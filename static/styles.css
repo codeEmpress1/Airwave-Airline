@@ -1,0 +1,13 @@
+#map {
+    width: 600px;
+    height: 600px;
+    position:absolute;
+    right:0;
+    top:0;
+    height:90%;
+    margin-top:4.5%;
+  }
+  .container{
+      float: left;
+     
+  }

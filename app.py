@@ -1,7 +1,8 @@
 import os
 
 from cs50 import SQL
-from flask import Flask, flash, jsonify, redirect, render_template, request, session
+from flask import Flask, flash, jsonify, redirect, render_template, request, session,url_for
+import random
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
@@ -118,6 +119,23 @@ def register():
     else:
         return render_template("register.html")
 
+@app.route("/booking", methods=["GET", "POST"])
 
+def book():
+    ticket_id = random.randint(1, 1000)
+    print(ticket_id)
+    departure = request.form.get("departure")
+    destination = request.form.get("destination")
+    date = request.form.get("date")
+    # userId = session.get('user_id', 'user_id') 
+    userId = session["user_id"] 
+    passenger = request.form.get("passenger")
+    if request.method == "POST":
+        print({departure, destination, date, passenger, userId})
+        if not departure or not destination or not date or not  passenger:
+            return apology("fill all required field")
+        row = db.execute("INSERT INTO booking (departure,destination,date,user_id,passenger,ticket_id) VALUES(:departure, :destination, :date, :userId, :passenger, :ticket_id)",
+        departure =departure, destination = destination, date = date, userId = userId, passenger = passenger,ticket_id =ticket_id)
+    return render_template("booking.html")
 if __name__ == "__main__":
     app.run()

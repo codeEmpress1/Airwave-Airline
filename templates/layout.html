@@ -15,12 +15,12 @@
         <link href="/static/favicon.ico" rel="icon">
 
         <link href="/static/styles.css" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
 
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+       
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-
+        <script src="/static/main.js"></script>
         <title>airwave: {% block title %}{% endblock %}</title>
 
     </head>
@@ -35,18 +35,18 @@
             <div class="collapse navbar-collapse" id="navbar">
                 {% if session.user_id %}
                     <ul class="navbar-nav mr-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/">Quote</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/buy">Buy</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/sell">Sell</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/history">History</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/">home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/booking">booking</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/gallery"></a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about">History</a></li>
                     </ul>
                     <ul class="navbar-nav ml-auto mt-2">
                         <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
                     </ul>
                 {% else %}
                     <ul class="navbar-nav ml-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/register">admin Register</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/login">admin Log In</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/register">Register with airwave</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/login"> Log In</a></li>
                     </ul>
                 {% endif %}
             </div>
@@ -67,6 +67,10 @@
         <footer class="small text-center text-muted">
             Data provided for free by <a href="https://iextrading.com/developer">IEX</a>. View <a href="https://iextrading.com/api-exhibit-a/">IEX’s Terms of Use</a>.
         </footer>
-
+        
+        <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     </body>
 </html>
