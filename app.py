@@ -120,8 +120,9 @@ def register():
         return render_template("register.html")
 
 @app.route("/booking", methods=["GET", "POST"])
-
+@login_required
 def book():
+    
     ticket_id = random.randint(1, 1000)
     print(ticket_id)
     departure = request.form.get("departure")
@@ -129,6 +130,8 @@ def book():
     date = request.form.get("date")
     # userId = session.get('user_id', 'user_id') 
     userId = session["user_id"] 
+    usersrow=db.execute(f"Select * from user where id ='{userId}'")
+    email=usersrow[0]["email"]
     passenger = request.form.get("passenger")
     if request.method == "POST":
         if not departure or not destination or not date or not  passenger:
@@ -137,7 +140,7 @@ def book():
         departure =departure, destination = destination, date = date, userId = userId, passenger = passenger,ticket_id =ticket_id)
         ro = db.execute("SELECT * FROM price WHERE departure=:departure and destination=:destination ",departure=departure,destination=destination)
         print(ro)
-        return render_template("price.html",ro=ro)
+        return render_template("price.html",ro=ro,emails=email)
     else:
         return render_template("booking.html")
 
