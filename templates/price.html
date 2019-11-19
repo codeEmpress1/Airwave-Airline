@@ -49,8 +49,8 @@
 //   });
 
 function payWithPaystack() {
-    amt=$('#pricetopay').val() * 100;
-    email=$("#email").val()
+    let amt=$('#pricetopay').val() * 100;
+    let email=$("#email").val()
     console.log(amt)
 var handler = PaystackPop.setup({
     key: 'pk_test_2c2ac8fbaf18b0e9af6b38d1e05e95c2f1f07b67', //put your public key here
@@ -65,6 +65,21 @@ var handler = PaystackPop.setup({
             }
         ]
     },
+    callback: function (response) {
+        console.log(JSON.stringify(response))
+        let data = JSON.stringify(response);
+        $.ajax({
+            url: '/create_transactions',
+            data:data,
+            contentType: 'json',
+            type: 'POST',
+            headers:{
+                'Access-Control-Allow-Origin': '*',
+            },
+            success: (data) => alert(data)
+        })
+
+    }
 
 })
 handler.openIframe();
