@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    register
+{% endblock %}
+
+{% block main %}
+    
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">departure</th>
+        <th scope="col">destination</th>
+        <th scope="col">price</th>
+
+      </tr>
+    </thead>
+    <tbody>
+        {% for r in ro %}
+      <tr>
+        <th scope="row">1</th>
+        <td>{{ r['departure'] }}</td>
+        <td>{{ r['destination'] }}</td>
+        <td>{{ r['price'] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+</table>
+<button id="btn" class="btn btn-primary">make payment</button>
+ 
+
+      
+    
+
+
+		
+   
+{% endblock %}

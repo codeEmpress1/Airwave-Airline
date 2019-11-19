@@ -131,11 +131,18 @@ def book():
     userId = session["user_id"] 
     passenger = request.form.get("passenger")
     if request.method == "POST":
-        print({departure, destination, date, passenger, userId})
         if not departure or not destination or not date or not  passenger:
             return apology("fill all required field")
         row = db.execute("INSERT INTO booking (departure,destination,date,user_id,passenger,ticket_id) VALUES(:departure, :destination, :date, :userId, :passenger, :ticket_id)",
         departure =departure, destination = destination, date = date, userId = userId, passenger = passenger,ticket_id =ticket_id)
-    return render_template("booking.html")
+        ro = db.execute("SELECT * FROM price WHERE departure=:departure and destination=:destination ",departure=departure,destination=destination)
+        print(ro)
+        return render_template("price.html",ro=ro)
+    else:
+        return render_template("booking.html")
+
+    
+    
+
 if __name__ == "__main__":
     app.run()
