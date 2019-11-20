@@ -8,9 +8,15 @@ from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import apology, login_required
+from flask_cors import CORS, cross_origin
+
 
 # Configure application
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
+# app = Flask(__name__)
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -120,22 +126,44 @@ def register():
         return render_template("register.html")
 
 @app.route("/booking", methods=["GET", "POST"])
-
+@login_required
 def book():
+    
     ticket_id = random.randint(1, 1000)
-    print(ticket_id)
     departure = request.form.get("departure")
     destination = request.form.get("destination")
     date = request.form.get("date")
     # userId = session.get('user_id', 'user_id') 
     userId = session["user_id"] 
-    passenger = request.form.get("passenger")
+    usersrow=db.execute(f"Select * from user where id ='{userId}'")
+    email=usersrow[0]["email"]
+    passenger = request.form.get("passenger")       
     if request.method == "POST":
-        print({departure, destination, date, passenger, userId})
         if not departure or not destination or not date or not  passenger:
             return apology("fill all required field")
+        if int(passenger) < 1 :
+            return apology("invalid user")
         row = db.execute("INSERT INTO booking (departure,destination,date,user_id,passenger,ticket_id) VALUES(:departure, :destination, :date, :userId, :passenger, :ticket_id)",
         departure =departure, destination = destination, date = date, userId = userId, passenger = passenger,ticket_id =ticket_id)
-    return render_template("booking.html")
+        if not row:
+            return apology("flight unavalaible")
+        ro = db.execute("SELECT * FROM price WHERE departure=:departure and destination=:destination ",departure=departure,destination=destination)
+        print(ro)
+        return render_template("price.html",ro=ro,emails=email)
+    else:
+        return render_template("booking.html")
+
+
+@app.route('/create_transactions', methods=["POST"])
+@cross_origin()
+def create_transaction():
+        # request.get_json returns a dictionary
+    json_data = request.get_json("data")
+    print(json_data['reference'])
+    return json_data
+            # print(json_data)
+     
+    
+
 if __name__ == "__main__":
     app.run()
