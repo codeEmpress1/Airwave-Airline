@@ -1,1 +1,157 @@
+{% extends "base.html" %}
+{% block title %}Admin{% endblock %}
+{% block body %}
+ <meta charset="utf-8">
+ <!-- Viewport Meta Tag -->
+ <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ <!-- Bootstrap CSS -->
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+ <!-- <link rel="stylesheet" href="../static/styles.css"> -->
+ <link rel="stylesheet" href="../static/admin.css">
+ <!-- fontawesome JS -->
+ <script src="https://use.fontawesome.com/f225000782.js"></script>
 
+ <!-- container open -->
+ <div class="container-fluid">
+<!--    
+  <nav class="navbar navbar-toggleable-sm navbar-light bg-faded fixed-top">
+    
+   <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+   </button>
+<h1><i>Airwave</i></h1>
+    
+   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+     <li class="nav-item active">
+      <a class="nav-link" href="javascript:;">middle1<span class="sr-only">(current)</span></a>
+     </li>
+     <li class="nav-item">
+      <a class="nav-link" href="javascript:;">middle2</a>
+     </li>
+     <li class="nav-item">
+      <a class="nav-link" href="javascript:;">middle3</a>
+     </li>
+     <li class="nav-item">
+      <a class="nav-link" href="javascript:;">middle4</a>
+     </li>
+    </ul>
+   </div>
+  </nav> -->
+    
+  <div class="row" style="margin-top: 70px">
+    <nav class="sidebar col-sm-3" data-toggle="">
+      <div class="nav">
+        <div class="nav-profile">
+            <h2>Welcome Admin</h2>
+        </div>
+        </div>
+       <form class="form-inline md-form form-sm mt-0"  action="/admin">
+          <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn search_btn" type="submit">Search</button>
+        </form>
+      <div class="list">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="#">View all Users</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">View Bookings</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="">Price List</a>
+            </li>
+            </ul>
+      </div>
+     </nav>
+       
+     <div class="col-sm-9 dash">
+     <div class="user">
+        <h2 class="admin_heading">Users</h2>
+        <table class="table table-striped table-dark">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Handle</th>
+              <th scope="col">Handle</th>
+              <th scope="col">Handle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">id</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+              <td>@mdo</td>
+              <td>@mdo</td>
+            </tr>
+          </tbody>
+        </table>
+     </div>
+
+      <div class="bookings">
+          <h2 class="admin_heading"><span>Bookings</span> </h2>
+          <table class="table table-striped table-dark">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+                <th scope="col">Handle</th>
+                <th scope="col">Handle</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">id</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>@mdo</td>
+                <td>@mdo</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+      
+
+      <div class="price_list">
+          <h2 class="admin_heading"><span>Price list</span></h2>
+          <table class="table table-striped table-dark">
+              <thead>
+                <tr>
+                  <!-- <th scope="col"></th> -->
+                  <th scope="col">Departure</th>
+                  <th scope="col">Destination</th>
+                  <th scope="col">Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>@mdo</td>
+                  <td>@mdo</td>
+                  <td>@mdo</td>
+                </tr>
+              </tbody>
+            </table>
+      </div>
+     </div>
+  </div>
+  <!-- container close -->
+  </div>
+
+    
+  <!-- JavaScript: placed at the end of the document so the pages load faster -->
+  <!-- jQuery library -->
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+
+  <!-- Tether -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+{% endblock %}

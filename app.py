@@ -10,7 +10,6 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import apology, login_required
 from flask_cors import CORS, cross_origin
 
-
 # Configure application
 app = Flask(__name__)
 cors = CORS(app)
@@ -162,8 +161,14 @@ def create_transaction():
     print(json_data['reference'])
     return json_data
             # print(json_data)
-     
-    
+
+
+
+
+@app.route('/admin')
+def admin():
+
+    return render_template("admin.html")
 
 if __name__ == "__main__":
     app.run()
