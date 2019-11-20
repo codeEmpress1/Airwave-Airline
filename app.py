@@ -129,41 +129,72 @@ def register():
 @login_required
 def book():
     
-    ticket_id = random.randint(1, 1000)
+    ticket_id = random.randint(1, 10000)
     departure = request.form.get("departure")
     destination = request.form.get("destination")
     date = request.form.get("date")
+    status = "pending"
     # userId = session.get('user_id', 'user_id') 
     userId = session["user_id"] 
     usersrow=db.execute(f"Select * from user where id ='{userId}'")
     email=usersrow[0]["email"]
+    fullname = usersrow[0]["fullname"]
+    userId = session["user_id"]
+    phone = usersrow[0]["phone_number"]
+    # bookid = session["id"]
+
+    # print(bookid)
     passenger = request.form.get("passenger")       
     if request.method == "POST":
         if not departure or not destination or not date or not  passenger:
             return apology("fill all required field")
         if int(passenger) < 1 :
             return apology("invalid user")
-        row = db.execute("INSERT INTO booking (departure,destination,date,user_id,passenger,ticket_id) VALUES(:departure, :destination, :date, :userId, :passenger, :ticket_id)",
-        departure =departure, destination = destination, date = date, userId = userId, passenger = passenger,ticket_id =ticket_id)
-        if not row:
-            return apology("flight unavalaible")
+        row = db.execute("INSERT INTO booking (departure,destination,date,user_id,passenger,ticket_id,status) VALUES(:departure, :destination, :date, :userId, :passenger, :ticket_id, :status)",
+        departure =departure, destination = destination, date = date, userId = userId, passenger = passenger,ticket_id =ticket_id, status=status)
+        session["bookId"] =row
         ro = db.execute("SELECT * FROM price WHERE departure=:departure and destination=:destination ",departure=departure,destination=destination)
+        if not ro:
+            return apology("flight unavalaible")
         print(ro)
-        return render_template("price.html",ro=ro,emails=email)
+        return render_template("price.html",ro=ro,emails=email,fullname=fullname ,userId=userId, phone=phone)
     else:
         return render_template("booking.html")
 
 
 @app.route('/create_transactions', methods=["POST"])
 @cross_origin()
+@login_required
 def create_transaction():
+    user_id = session["user_id"]
+    bookId = session["bookId"]
+    print(bookId)
         # request.get_json returns a dictionary
+   
     json_data = request.get_json("data")
-    print(json_data['reference'])
-    return json_data
-            # print(json_data)
-     
+    print(json_data)
+    ticket = db.execute("select ticket_id from booking where id=:bookId", bookId=bookId)
+    ticket_id = ticket[0]['ticket_id']
+    # print(ticket_id)
+    name = str(json_data["name"])
+    email = str(json_data["email"])
+
     
+    reference = str(json_data["reference"])
+    status = str(json_data["status"])
+    message = str(json_data["message"])
+    trans =  str(json_data["transaction"])
+    phone = str(json_data["phone"])
+    print(name,status,message,trans,phone)
+    if request.method == "POST":
+        ro = db.execute("insert into trans (name,email,reference,user_id,status,ticket_id,message,phone) values(:name,:email,:reference,:user_id,:status,:ticket_id,:message,:phone)",
+        name=name, email=email, reference=reference, user_id=user_id, status=status, ticket_id=ticket_id,message=message,phone=phone)
+        update = db.execute("update booking set status=:status where Id=:bookId", status=status,bookId=bookId)
+    
+        return "text"
+       
+     
+    return json_data
 
 if __name__ == "__main__":
     app.run()

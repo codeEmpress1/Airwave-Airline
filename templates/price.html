@@ -29,45 +29,45 @@
     </tbody>
     <input type="hidden" value="{{ ro[0]['price'] }}" id="pricetopay">
     <input type="hidden" value="{{ emails }}" id="email">
+    <input type="hidden" value="{{fullname}}" id="fullname">
+    <input type="hidden" value="{{userId}}" id="userId">
+    <input type="hidden" value="{{phone}}" id="phone">
     <button type="button" onclick="payWithPaystack();">Pay</button>
-    <button type="button" onclick="payWithPaystack2();">sanwolu</button>
 </table>
 
 <div id="paystackEmbedContainer"></div>
 
 <script src='https://js.paystack.co/v1/inline.js'></script> 
 <script>
-//     console.log("hello")
-//   PaystackPop.setup({
-//    key: 'pk_test_2c2ac8fbaf18b0e9af6b38d1e05e95c2f1f07b67',
-//    email: 'customer@email.com',
-//    amount: 10000,
-//    container: 'paystackEmbedContainer',
-//    callback: function(response){
-//         alert('successfully subscribed. transaction ref is ' + response.reference);
-//     },
-//   });
 
 function payWithPaystack() {
     let amt=$('#pricetopay').val() * 100;
     let email=$("#email").val()
-    console.log(amt)
+    let phone = $("#phone").val()
+    let userId = $("#userId").val()
+    let fullname = $("#fullname").val()
+    // console.log(amt)
 var handler = PaystackPop.setup({
     key: 'pk_test_2c2ac8fbaf18b0e9af6b38d1e05e95c2f1f07b67', //put your public key here
     email: email, //put your customer's email here
-    amount: Number(amt), //amount the customer is supposed to pay
+    amount: Number(amt),
+    currency:"NGN", //amount the customer is supposed to pay
     metadata: {
         custom_fields: [
             {
-                display_name: "sola",
-                variable_name: "08030785122",
-                value: "+2348012345678" //customer's mobile number
+                display_name: fullname,
+                variable_name: "phone number",
+                value: phone//customer's mobile number
             }
         ]
     },
     callback: function (response) {
-        console.log(JSON.stringify(response))
-        let data = JSON.stringify(response);
+       // debugger;
+       response["name"] = fullname;
+       response["email"] = email;
+       response["userId"] = userId
+       response["phone"] = phone;
+        let data = JSON.stringify(response)
         $.ajax({
             url: '/create_transactions',
             data:data,
@@ -76,9 +76,11 @@ var handler = PaystackPop.setup({
             headers:{
                 'Access-Control-Allow-Origin': '*',
             },
-            success: (data) => alert(data)
+            success: (data) => console.log(data) 
+           
         })
-
+        
+     
     }
 
 })
