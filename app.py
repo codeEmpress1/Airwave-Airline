@@ -134,6 +134,7 @@ def book():
     departure = request.form.get("departure")
     destination = request.form.get("destination")
     date = request.form.get("date")
+    time= request.form.get("time")
     status = "pending"
     # userId = session.get('user_id', 'user_id') 
     userId = session["user_id"] 
@@ -149,17 +150,21 @@ def book():
     if request.method == "POST":
         if not departure or not destination or not date or not  passenger:
             return apology("fill all required field")
-        if int(passenger) < 1 :
-            return apology("invalid user")
-        row = db.execute("INSERT INTO booking (departure,destination,date,user_id,passenger,ticket_id,status) VALUES(:departure, :destination, :date, :userId, :passenger, :ticket_id, :status)",
-        departure =departure, destination = destination, date = date, userId = userId, passenger = passenger,ticket_id =ticket_id, status=status)
+       
+        
+       
+        ro = db.execute("SELECT * FROM price WHERE departure=:departure and destination=:destination ",departure=departure,destination=destination)
+        prices =ro[0]['price']  * int(passenger)
+        if not ro:
+            return apology("flight unavalaible")
+        row = db.execute("INSERT INTO booking (departure,destination,date,user_id,passenger,ticket_id,status,time,prices) VALUES(:departure, :destination, :date, :userId, :passenger, :ticket_id, :status, :time, :prices)",
+        departure =departure, destination = destination, date = date, userId = userId, passenger = passenger,ticket_id =ticket_id, status=status, time=time, prices=prices)
         session["bookId"] =row
         session["pas"] = int(passenger)
         pa = session["pas"]
-        ro = db.execute("SELECT * FROM price WHERE departure=:departure and destination=:destination ",departure=departure,destination=destination)
-        if not ro:
-            return apology("flight unavalaible")
-        return render_template("price.html",ro=ro,emails=email,fullname=fullname ,userId=userId, phone=phone,pa=pa)
+        bookId = session["bookId"] 
+        display = db.execute("select * from booking where id=:bookId",bookId=bookId)
+        return render_template("price.html",display=display,ro=ro,emails=email,fullname=fullname ,userId=userId, phone=phone,pa=pa)
     else:
         return render_template("booking.html")
 
@@ -192,11 +197,26 @@ def create_transaction():
         ro = db.execute("insert into trans (name,email,reference,user_id,status,ticket_id,message,phone) values(:name,:email,:reference,:user_id,:status,:ticket_id,:message,:phone)",
         name=name, email=email, reference=reference, user_id=user_id, status=status, ticket_id=ticket_id,message=message,phone=phone)
         update = db.execute("update booking set status=:status where Id=:bookId", status=status,bookId=bookId)
+        if not update:
+            return apology("transaction not completed")
+        
+        return redirect("/booked")
+    return render_template("booked.html")
+
     
-        return render_template("index.html")
-       
-     
-    return json_data
+
+@app.route('/booked')
+@login_required
+def booked():
+   
+    bookId = session["bookId"]
+    if request.method == "GET":
+        d = db.execute("select * from booking where id=:bookId",bookId=bookId)
+
+        return render_template("booked.html", d=d)
+   
+    return render_template("booked.html")
+
 
 if __name__ == "__main__":
     app.run()
