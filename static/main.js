@@ -25,26 +25,49 @@ var L;
         .addTo(map);
       }
 
-
-      function makepayment(key, email, amount, ref, callback) {
-        var handler = PaystackPop.setup({
-          key: key, // This is your public key only! 
-          email: email || 'customer@email.com', // Customers email
-          amount: amount || 5000000.00, // The amount charged, I like big money lol
-          ref: ref || 6019, // Generate a random reference number and put here",
-          metadata: { // More custom information about the transaction
-           custom_fields: [
-            {}
-           ]
-          },
-          callback: callback || function(response){
-            let div = document.getElementsByTagName("div")[0] 
-            div.innerHTML = "This was the json response reference </br />" + response.reference;
-          },
-          onClose: function(){
-            alert('window closed');
-          }
-        });
-        // Payment Request Just Fired  
-        handler.openIframe(); 
-      }
+      function payWithPaystack() {
+        let amt=$('#pricetopay').val() * 100;
+        let passenger = $("#passenger").val()
+        let email=$("#email").val()
+        let phone = $("#phone").val()
+        let userId = $("#userId").val()
+        let fullname = $("#fullname").val()
+    var handler = PaystackPop.setup({
+        key: 'pk_test_2c2ac8fbaf18b0e9af6b38d1e05e95c2f1f07b67', //put your public key here
+        email: email, //put your customer's email here
+        amount: amt,
+        currency:"NGN", //amount the customer is supposed to pay
+        metadata: {
+            custom_fields: [
+                {
+                    display_name: fullname,
+                    variable_name: "phone number",
+                    value: phone//customer's mobile number
+                }
+            ]
+        },
+        callback: function (response) {
+           // debugger;
+           response["name"] = fullname;
+           response["email"] = email;
+           response["userId"] = userId
+           response["phone"] = phone;
+            let data = JSON.stringify(response)
+            $.ajax({
+                url: '/create_transactions',
+                data:data,
+                contentType: 'json',
+                type: 'POST',
+                headers:{
+                    'Access-Control-Allow-Origin': '*',
+                },
+                success: (data) => console.log(data) 
+               
+            })
+            
+         
+        }
+    
+    })
+    handler.openIframe();
+    }

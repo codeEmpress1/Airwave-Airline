@@ -3,6 +3,7 @@ import os
 from cs50 import SQL
 from flask import Flask, flash, jsonify, redirect, render_template, request, session,url_for
 import random
+import datetime;
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
@@ -153,11 +154,13 @@ def book():
         row = db.execute("INSERT INTO booking (departure,destination,date,user_id,passenger,ticket_id,status) VALUES(:departure, :destination, :date, :userId, :passenger, :ticket_id, :status)",
         departure =departure, destination = destination, date = date, userId = userId, passenger = passenger,ticket_id =ticket_id, status=status)
         session["bookId"] =row
+        session["pas"] = int(passenger)
+        p = session["pas"]
+        print(p)
         ro = db.execute("SELECT * FROM price WHERE departure=:departure and destination=:destination ",departure=departure,destination=destination)
         if not ro:
             return apology("flight unavalaible")
-        print(ro)
-        return render_template("price.html",ro=ro,emails=email,fullname=fullname ,userId=userId, phone=phone)
+        return render_template("price.html",ro=ro,emails=email,fullname=fullname ,userId=userId, phone=phone,p=p)
     else:
         return render_template("booking.html")
 
