@@ -72,3 +72,10 @@ var L;
     })
     handler.openIframe();
     }
+
+
+    var today = new Date()
+   let date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+        let inputDate = document.getElementById('date');
+        inputDate.min = date;
+    

@@ -193,7 +193,7 @@ def create_transaction():
         name=name, email=email, reference=reference, user_id=user_id, status=status, ticket_id=ticket_id,message=message,phone=phone)
         update = db.execute("update booking set status=:status where Id=:bookId", status=status,bookId=bookId)
     
-        return "text"
+        return render_template("index.html")
        
      
     return json_data
