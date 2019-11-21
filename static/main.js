@@ -25,9 +25,10 @@ var L;
         .addTo(map);
       }
 
-      function payWithPaystack() {
-        let amt=$('#pricetopay').val() * 100;
-        let passenger = $("#passenger").val()
+      function payWithPaystack2() {
+        let amt=$('#pricetopay').val()
+        let amount =  Number(amt ) * 100
+        console.log(amount)
         let email=$("#email").val()
         let phone = $("#phone").val()
         let userId = $("#userId").val()
@@ -35,7 +36,7 @@ var L;
     var handler = PaystackPop.setup({
         key: 'pk_test_2c2ac8fbaf18b0e9af6b38d1e05e95c2f1f07b67', //put your public key here
         email: email, //put your customer's email here
-        amount: amt,
+        amount: Number(amount),
         currency:"NGN", //amount the customer is supposed to pay
         metadata: {
             custom_fields: [

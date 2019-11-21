@@ -155,12 +155,11 @@ def book():
         departure =departure, destination = destination, date = date, userId = userId, passenger = passenger,ticket_id =ticket_id, status=status)
         session["bookId"] =row
         session["pas"] = int(passenger)
-        p = session["pas"]
-        print(p)
+        pa = session["pas"]
         ro = db.execute("SELECT * FROM price WHERE departure=:departure and destination=:destination ",departure=departure,destination=destination)
         if not ro:
             return apology("flight unavalaible")
-        return render_template("price.html",ro=ro,emails=email,fullname=fullname ,userId=userId, phone=phone,p=p)
+        return render_template("price.html",ro=ro,emails=email,fullname=fullname ,userId=userId, phone=phone,pa=pa)
     else:
         return render_template("booking.html")
 

@@ -23,20 +23,18 @@
         <th scope="row">1</th>
         <td>{{ r['departure'] }}</td>
         <td>{{ r['destination'] }}</td>
-        <td name="price" id="pricepay">{{ r['price']*p }}</td>
+        <td name="price" id="pricepay">{{ r['price']*pa}}</td>
       </tr>
       {% endfor %}
     </tbody>
-    <input type="hidden" value="{{ ro[0]['price'] }}" id="pricetopay">
+    <input type="hidden" value="{{ ro[0]['price']*pa }}" id="pricetopay">
     <input type="hidden" value="{{ emails }}" id="email">
     <input type="hidden" value="{{fullname}}" id="fullname">
     <input type="hidden" value="{{userId}}" id="userId">
     <input type="hidden" value="{{phone}}" id="phone">
-    <input type="hidden" value="{{p}}" id="passenger">
-    <button type="button" onclick="payWithPaystack();">Pay</button>
+    <input type="hidden" value="{{pa}}" id="passenger">
 </table>
-
-<div id="paystackEmbedContainer"></div>
+<button type="button" onclick="payWithPaystack2();" class="btn btn-primary">Pay</button>
 
 <script src='https://js.paystack.co/v1/inline.js'></script> 
 
