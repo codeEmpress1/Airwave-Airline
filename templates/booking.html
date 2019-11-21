@@ -5,6 +5,13 @@
 {% endblock %}
 
 {% block main %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="notification is-danger">
+        {{ messages[0] }}
+    </div>
+{% endif %}
+{% endwith %}
     <form action="/booking" method="post">
   <div class="signup-form">
         <div class="container">
@@ -48,6 +55,7 @@
     <div class="form-group">
         <label>passenger</label>
         <select name="passenger" id="move"class="custom-select custom-select-sm">
+            <option value="" disabled selected>select passenger</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -60,6 +68,7 @@
         <div class="form-group">
             <label>time</label>
             <select name="time" class="custom-select custom-select-sm">
+                    <option value="" disabled selected>select time</option>
                 <option value="12:00pm">12:00</option>
                 <option value="4:00pm">4:00pm</option>
             </select>

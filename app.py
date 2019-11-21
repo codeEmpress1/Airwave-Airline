@@ -63,11 +63,13 @@ def login():
 
         # Ensure username was submitted
         if not request.form.get("email"):
-            return apology("must provide username", 403)
+            flash("must provide email", 403)
+            return render_template("login.html")
 
         # Ensure password was submitted
         elif not request.form.get("password"):
-            return apology("must provide password", 403)
+            flash("must provide password", 403)
+            return render_template("login.html")
 
         # Query database for username
         rows = db.execute("SELECT * FROM user WHERE email = :email",
@@ -75,7 +77,8 @@ def login():
 
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0]["password"], request.form.get("password")):
-            return apology("invalid username and/or password", 403)
+            flash("invalid username and/or password", 403)
+            return render_template("index.html")
 
         # Remember which user has logged in
         session["user_id"] = rows[0]["id"]
@@ -111,17 +114,23 @@ def register():
     print(fullname,password,confirmation)
     if request.method == "POST":
         if not fullname or not password or not confirmation or not gender or not email or not phone_number:
-            return apology("you must provide all required field",403)
+            flash("you must provide all required field",403)
+            return render_template("register.html")
         if password != confirmation:
-            return apology("password doesnt match")
+            flash("password doesnt match")
+            return render_template("register.html")
+           
         row = db.execute("SELECT * FROM user WHERE email = :email",email=request.form.get("email"))
         if row:
-            return apology("email already exist taken")
+            flash("user all ready taken")
+            return render_template("register.html")
+            # return apology("email already exist taken")
         hashed = generate_password_hash(password)
         ro = db.execute("INSERT INTO user (fullname,password,email,phone_number,gender,is_admin) VALUES(:fullname, :hashed, :email, :phone_number, :gender,:admin)",
         fullname = fullname, hashed = hashed, email = email, phone_number = phone_number, gender = gender, admin ='false'  )
         if not ro:
-            return apology('error inserting')
+            flash("registration not successful")
+            return render_template("register.html")
         return redirect("/")
     else:
         return render_template("register.html")
@@ -149,7 +158,9 @@ def book():
     passenger = request.form.get("passenger")       
     if request.method == "POST":
         if not departure or not destination or not date or not  passenger:
-            return apology("fill all required field")
+            flash("fill all required field")
+            return render_template("booking.html")
+        
        
         
        
@@ -198,7 +209,8 @@ def create_transaction():
         name=name, email=email, reference=reference, user_id=user_id, status=status, ticket_id=ticket_id,message=message,phone=phone)
         update = db.execute("update booking set status=:status where Id=:bookId", status=status,bookId=bookId)
         if not update:
-            return apology("transaction not completed")
+            flash("transaction not completed")
+            return render_template("price.html")
         
         return redirect("/booked")
     return render_template("booked.html")
