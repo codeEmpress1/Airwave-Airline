@@ -1,3 +1,4 @@
 management.db
-/testenv
+env
+testenv
 /__pycache__
