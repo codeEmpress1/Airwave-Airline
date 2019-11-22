@@ -8,8 +8,11 @@ from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
-from helpers import apology, login_required, send_confirmation_email
+from helpers import apology, login_required
 from flask_cors import CORS, cross_origin
+import smtplib, ssl
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 
 # Configure application
@@ -49,6 +52,11 @@ def index():
     """Show portfolio of stocks"""
     
     return render_template("index.html")
+
+
+@app.route("/home")
+def home():
+    return render_template("home.html")
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -128,7 +136,7 @@ def register():
         hashed = generate_password_hash(password)
         ro = db.execute("INSERT INTO user (fullname,password,email,phone_number,gender,is_admin) VALUES(:fullname, :hashed, :email, :phone_number, :gender,:admin)",
         fullname = fullname, hashed = hashed, email = email, phone_number = phone_number, gender = gender, admin ='false'  )
- --
+
         if not ro:
             flash("registration not successful")
             return render_template("register.html")
@@ -166,6 +174,7 @@ def book():
         
        
         ro = db.execute("SELECT * FROM price WHERE departure=:departure and destination=:destination ",departure=departure,destination=destination)
+        print(ro)
         prices =ro[0]['price']  * int(passenger)
         if not ro:
             return apology("flight unavalaible")
@@ -187,7 +196,6 @@ def book():
 def create_transaction():
     user_id = session["user_id"]
     bookId = session["bookId"]
-    print(bookId)
         # request.get_json returns a dictionary
    
     json_data = request.get_json("data")
@@ -204,14 +212,65 @@ def create_transaction():
     message = str(json_data["message"])
     trans =  str(json_data["transaction"])
     phone = str(json_data["phone"])
-    print(name,status,message,trans,phone)
+    price = str(json_data['price'])
+    
     if request.method == "POST":
-        ro = db.execute("insert into trans (name,email,reference,user_id,status,ticket_id,message,phone) values(:name,:email,:reference,:user_id,:status,:ticket_id,:message,:phone)",
-        name=name, email=email, reference=reference, user_id=user_id, status=status, ticket_id=ticket_id,message=message,phone=phone)
+        ro = db.execute("insert into trans (name,email,reference,user_id,status,ticket_id,message,phone,price) values(:name,:email,:reference,:user_id,:status,:ticket_id,:message,:phone,:price)",
+        name=name, email=email, reference=reference, user_id=user_id, status=status, ticket_id=ticket_id,message=message,phone=phone,price=price)
         update = db.execute("update booking set status=:status where Id=:bookId", status=status,bookId=bookId)
-        if not update:
-            flash("transaction not completed")
-            return render_template("price.html")
+        session["transId"] = ro
+        transId = session["transId"]
+        send_mail_to_user = db.execute("select * from trans where id=:transId",transId=transId)
+
+        
+        ticket_id2 = send_mail_to_user[0]["ticket_id"]
+        name2 = send_mail_to_user[0]["name"]
+        status2 = send_mail_to_user[0]["status"]
+        message2 = send_mail_to_user[0]["message"]
+        trans2 = send_mail_to_user[0]["reference"]
+        price2 = send_mail_to_user[0]["price"]
+
+       
+        email = db.execute('select email from user where id=:user_id',user_id=user_id)
+        emails = email[0]['email']
+        sender_email = "airwaveairline@gmail.com"
+        receiver_email = emails
+        password = "decagon1234"
+
+        message = MIMEMultipart("alternative")
+        message["Subject"] = "flight booking successful"
+        message["From"] = sender_email
+        message["To"] = receiver_email
+        html = f"""\
+                <html>
+                <body>
+                    <h1>airwave reservation booking, {ticket_id2}</h1> <br>
+                    <h2>Dear, {name2}</h2>
+                    <p>Thank yo for making your booking with airwave airline below re the details of your itinerary:</p>
+                    <p>status: {status2}</p>
+                    <p>message: {message2}</p>
+                    <p>ref: {trans2}</p>
+                    <p>price: {price2}</p>
+
+                    
+                </body>
+                </html>
+                """
+    
+        # Turn these into plain/html MIMEText objects
+        # part1 = MIMEText(text, "plain")
+        part = MIMEText(html, "html")
+
+        # Add HTML/plain-text parts to MIMEMultipart message
+        # The email client will try to render the last part first
+        message.attach(part)
+        
+        # Create secure connection with server and send email
+        context = ssl.create_default_context()
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+            server.login(sender_email, password)
+            server.sendmail(sender_email, receiver_email, message.as_string())
+            
         
         return redirect("/booked")
     return render_template("booked.html")
@@ -221,18 +280,14 @@ def create_transaction():
 @app.route('/booked')
 @login_required
 def booked():
-   
     bookId = session["bookId"]
-    if request.method == "GET":
-        d = db.execute("select * from booking where id=:bookId",bookId=bookId)
-
-        return render_template("booked.html", d=d)
+    d = db.execute("select * from booking where id=:bookId",bookId=bookId)
+    return render_template("booked.html", d=d)
    
     return render_template("booked.html")
 
        
      
-    return json_data
 
 if __name__ == "__main__":
     app.run()

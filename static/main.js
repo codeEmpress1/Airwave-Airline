@@ -28,7 +28,7 @@ var L;
       function payWithPaystack2() {
         let amt=$('#pricetopay').val()
         let amount =  Number(amt ) * 100
-        console.log(amount)
+
         let email=$("#email").val()
         let phone = $("#phone").val()
         let userId = $("#userId").val()
@@ -53,6 +53,7 @@ var L;
            response["email"] = email;
            response["userId"] = userId
            response["phone"] = phone;
+           response["price"] = amount
             let data = JSON.stringify(response)
             $.ajax({
                 url: '/create_transactions',
@@ -62,7 +63,7 @@ var L;
                 headers:{
                     'Access-Control-Allow-Origin': '*',
                 },
-                success: (data) => {console.log(data); window.location = 'http://127.0.0.1:54330/booked' }
+                success: (data) => {console.log(data); window.location = '/booked' }
                
             })
             
