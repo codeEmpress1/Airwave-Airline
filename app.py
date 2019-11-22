@@ -128,6 +128,7 @@ def register():
         hashed = generate_password_hash(password)
         ro = db.execute("INSERT INTO user (fullname,password,email,phone_number,gender,is_admin) VALUES(:fullname, :hashed, :email, :phone_number, :gender,:admin)",
         fullname = fullname, hashed = hashed, email = email, phone_number = phone_number, gender = gender, admin ='false'  )
+ --
         if not ro:
             flash("registration not successful")
             return render_template("register.html")
