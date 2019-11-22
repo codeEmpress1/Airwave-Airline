@@ -11,6 +11,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import apology, login_required
 from flask_cors import CORS, cross_origin
 
+
 # Configure application
 app = Flask(__name__)
 cors = CORS(app)
@@ -168,13 +169,19 @@ def book():
 @login_required
 def create_transaction():
     user_id = session["user_id"]
-    bookId = session["bookId"]   
+    bookId = session["bookId"]
+    print(bookId)
+        # request.get_json returns a dictionary
+   
     json_data = request.get_json("data")
     print(json_data)
     ticket = db.execute("select ticket_id from booking where id=:bookId", bookId=bookId)
     ticket_id = ticket[0]['ticket_id']
+    # print(ticket_id)
     name = str(json_data["name"])
-    email = str(json_data["email"])    
+    email = str(json_data["email"])
+
+    
     reference = str(json_data["reference"])
     status = str(json_data["status"])
     message = str(json_data["message"])
@@ -189,12 +196,7 @@ def create_transaction():
         return render_template("index.html")
        
      
-    
-
-@app.route('/admin')
-def admin():
-    return render_template("admin.html")
-    
+    return json_data
 
 if __name__ == "__main__":
     app.run()
