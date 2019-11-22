@@ -167,7 +167,6 @@ def create_transaction():
 
 @app.route('/admin')
 def admin():
-
     return render_template("admin.html")
 
 if __name__ == "__main__":
