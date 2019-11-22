@@ -62,7 +62,7 @@ var L;
                 headers:{
                     'Access-Control-Allow-Origin': '*',
                 },
-                success: (data) => console.log(data) 
+                success: (data) => {console.log(data); window.location = 'http://127.0.0.1:54330/booked' }
                
             })
             

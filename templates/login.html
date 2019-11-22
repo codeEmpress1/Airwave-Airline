@@ -5,6 +5,13 @@
 {% endblock %}
 
 {% block main %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="notification is-danger">
+        {{ messages[0] }}
+    </div>
+{% endif %}
+{% endwith %}
     <form action="/login" method="post">
         <div class="form-group">
             <input autocomplete="off" autofocus class="form-control" name="email" placeholder="email" type="email">
