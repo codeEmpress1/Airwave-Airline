@@ -23,74 +23,20 @@
         <th scope="row">1</th>
         <td>{{ r['departure'] }}</td>
         <td>{{ r['destination'] }}</td>
-        <td name="price" id="pricepay">{{ r['price'] }}</td>
+        <td name="price" id="pricepay">{{ r['price']*pa}}</td>
       </tr>
       {% endfor %}
     </tbody>
-    <input type="hidden" value="{{ ro[0]['price'] }}" id="pricetopay">
+    <input type="hidden" value="{{ ro[0]['price']*pa }}" id="pricetopay">
     <input type="hidden" value="{{ emails }}" id="email">
     <input type="hidden" value="{{fullname}}" id="fullname">
     <input type="hidden" value="{{userId}}" id="userId">
     <input type="hidden" value="{{phone}}" id="phone">
-    <button type="button" onclick="payWithPaystack();">Pay</button>
+    <input type="hidden" value="{{pa}}" id="passenger">
 </table>
-
-<div id="paystackEmbedContainer"></div>
+<button type="button" onclick="payWithPaystack2();" class="btn btn-primary">Pay</button>
 
 <script src='https://js.paystack.co/v1/inline.js'></script> 
-<script>
-
-function payWithPaystack() {
-    let amt=$('#pricetopay').val() * 100;
-    let email=$("#email").val()
-    let phone = $("#phone").val()
-    let userId = $("#userId").val()
-    let fullname = $("#fullname").val()
-    // console.log(amt)
-var handler = PaystackPop.setup({
-    key: 'pk_test_2c2ac8fbaf18b0e9af6b38d1e05e95c2f1f07b67', //put your public key here
-    email: email, //put your customer's email here
-    amount: Number(amt),
-    currency:"NGN", //amount the customer is supposed to pay
-    metadata: {
-        custom_fields: [
-            {
-                display_name: fullname,
-                variable_name: "phone number",
-                value: phone//customer's mobile number
-            }
-        ]
-    },
-    callback: function (response) {
-       // debugger;
-       response["name"] = fullname;
-       response["email"] = email;
-       response["userId"] = userId
-       response["phone"] = phone;
-        let data = JSON.stringify(response)
-        $.ajax({
-            url: '/create_transactions',
-            data:data,
-            contentType: 'json',
-            type: 'POST',
-            headers:{
-                'Access-Control-Allow-Origin': '*',
-            },
-            success: (data) => console.log(data) 
-           
-        })
-        
-     
-    }
-
-})
-handler.openIframe();
-}
-// ###################################################
-
-
-</script>
-
 
       
     
