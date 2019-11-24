@@ -59,6 +59,11 @@ def home():
     return render_template("home.html")
 
 
+@app.route("/gallery")
+def gallery():
+    return render_template("gallery.html")
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
