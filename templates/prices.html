@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block main %}
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">departure</th>
+        <th scope="col">destination</th>
+        <th scope="col">price</th>
+        <th scope="col">update</th>
+        <th scope="col">delete</th>
+
+
+      </tr>
+    </thead>
+    <tbody>
+     
+        {% for ro in row %}
+        <tr>
+          <th scope="row">{{ro['id']}}</th>
+          <td>{{ ro['departure'] }}</td>
+          <td>{{ ro['destination']}}</td>
+          <td>{{ro['price']}}</td>
+          <td><button class="btn btn-primary" style="width: 100px;" onclick="myFunction()">update</button></td>
+          <!-- <td><a id="updatebtn" class="btn btn-primary" data-role="{{id}}" value="{{ro['id']}}" href="/update">update</a></td> -->
+          <td><a id="deletebtn" class="btn btn-primary" data-role="{{id}}" value="{{ro['id']}}" href="/delete">delete</a></td>
+          <td ><input type="text" id="input" style="display: none;"></td>
+
+         
+            </tr>
+        {% endfor %}
+
+      </tbody>
+</table>
+   <h2>welcome</h2>
+{% endblock %}

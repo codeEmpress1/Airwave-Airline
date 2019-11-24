@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block main %}
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">user_id</th>
+        <th scope="col">departure</th>
+        <th scope="col">destination</th>
+        <th scope="col">ticket_id</th>
+        <th scope="col">passengers</th>
+        <th scope="col">date</th>
+        <th scope="col">time</th>
+        <th scope="col">price</th>
+        <th scope="col">status</th>
+
+      </tr>
+    </thead>
+    <tbody>
+     
+        {% for ro in row %}
+        <tr>
+          <th scope="row">{{ro['id']}}</th>
+          <td>{{ ro['user_id'] }}</td>
+          <td>{{ ro['departure'] }}</td>
+          <td>{{ ro['destination']}}</td>
+          <td>{{ro['ticket_id']}}</td>
+          <td>{{ ro['passenger'] }}</td>
+          <td>{{ ro['date'] }}</td>
+          <td>{{ ro['time']}}</td>
+          <td>{{ro['prices']}}</td>
+          <td>{{ ro['status'] }}</td>
+          
+            </tr>
+        {% endfor %}
+
+      </tbody>
+</table>
+   <h2>welcome</h2>
+{% endblock %}

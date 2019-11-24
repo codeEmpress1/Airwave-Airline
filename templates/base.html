@@ -3,7 +3,8 @@
   <head>
     <title>{% block title %}{% endblock %}</title>
    <!-- <link rel="stylesheet" type="text/css" href="/static/style.css"> -->
-   <link rel="stylesheet" type="text/css" href="/static/css/main1.css">
+   <link rel="stylesheet" type="text/css" href="/static/main1.css">
+   <link rel="stylesheet" type="text/css" href="/static/admin.css">
     <!-- Bootstrap core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -15,61 +16,70 @@
   </head>
   
   <body>
-  
-      <nav class="navbar navbar-default">
-          <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#">Brand</a>
+    <nav  class="navbar navbar-inverse" style="margin-bottom : -10px; opacity:0.9;">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a  id ="image2" class=" navbar-brand" href="#">AIRWAVE AIRLINE</a>
+    </div>
+     {% if session.user_id %}
+         <ul style=" padding-left: 30%;" class="nav navbar-nav">
+       <li role="presentation"><a href="/home">Home</a></li>
+       <li role="presentation"><a href="/booking">booking</a></li>
+        <li role="presentation"><a href="/gallery">Gallery</a></li>
+        <li role="presentation"><a href="/history">history</a></li>
+        <li role="presentation"><a href="/about">about</a></li>
+        <li role="presentation"><a href="/avaliableprice">prices</a></li>
+
+        <li role="presentation"><a href="/logout">logout</a></li>
+    </ul>
+    
+    <form class="navbar-form navbar-left" action="/action_page.php">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search">
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>
+     
+        </div>
+      </div>
+    </form>
+                {% else %}
+                <ul style=" padding-left: 30%;" class="nav navbar-nav">
+                    <li role="presentation"><a href="/">Home</a></li>
+                    <li role="presentation"><a href="/register">register</a></li>
+                     <li role="presentation"><a href="/gallery">Gallery</a></li>
+                     <li role="presentation"><a href="/login">login</a></li>
+                     <li role="presentation"><a href="/about">about</a></li>
+                     <li role="presentation"><a href="/avaliableprice">prices</a></li>
+                 </ul>
+                 
+    <form class="navbar-form navbar-left" action="/action_page.php">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search">
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>
+             
+    </div>
+  </div>
+</form>
+                {% endif %}
             </div>
-        
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Link</a></li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">One more separated link</a></li>
-                  </ul>
-                </li>
-              </ul>
-              <form class="navbar-form navbar-left">
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-              </form>
-              <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Link</a></li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div><!-- /.navbar-collapse -->
-          </div><!-- /.container-fluid -->
-      </nav>
-      {% block body %}
+  
+
+  </div>
+</nav>
+
+{% if get_flashed_messages() %}
+<header>
+    <div class="alert alert-primary border text-center" role="alert">
+        {{ get_flashed_messages() | join(" ") }}
+    </div>
+</header>
+{% endif %}
+      {% block main %}
       {% endblock %}
       <footer id="footer" class="footer-1">
           <div class="main-footer widgets-dark typo-light">
@@ -88,7 +98,7 @@
           <h5 class="widget-title">Quick Links<span></span></h5>
           <ul class="thumbnail-widget">
           <li>
-          <div class="thumb-content"><a href="login.html">Log in</a></div>	
+          <div class="thumb-content"><a href="/login">Log in</a></div>	
           </li>
           <li>
           <div class="thumb-content"><a href="careers.html">Careers</a></div>	
@@ -138,6 +148,10 @@
           </div>
           </div>
           </footer>
+         
+          <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+          <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+          <script src="/static/main.js"></script>
   </body>
 </html>
 
