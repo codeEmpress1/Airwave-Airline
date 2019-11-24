@@ -1,24 +1,36 @@
-{% extends "layout.html" %}
+{% extends "base.html" %}
 
 {% block title %}
     Log In
 {% endblock %}
 
-{% block main %}
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-    <div class="notification is-danger">
-        {{ messages[0] }}
+{% block body %}
+<link rel="stylesheet" href="../static/css/login.css">
+<div class="whole_page">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="notification is-danger">
+            {{ messages[0] }}
+        </div>
+    {% endif %}
+    {% endwith %}
+    <div class="loginform">
+        <form action="/login" method="post" class="login">
+            <fieldset>
+                <legend>Login</legend>
+                <div class="form-group ">
+                     <input autocomplete="off" autofocus class="form-control" name="email" placeholder="email" type="email">
+                 </div>
+                 <div class="form-group">
+                     <input class="form-control" name="password" placeholder="Password" type="password">
+                 </div>
+                 <div class="lgbtn">
+                     <button class="btn" type="submit">Log In</button>
+                 </div>
+            </fieldset>
+         </form>
     </div>
-{% endif %}
-{% endwith %}
-    <form action="/login" method="post">
-        <div class="form-group">
-            <input autocomplete="off" autofocus class="form-control" name="email" placeholder="email" type="email">
-        </div>
-        <div class="form-group">
-            <input class="form-control" name="password" placeholder="Password" type="password">
-        </div>
-        <button class="btn btn-primary" type="submit">Log In</button>
-    </form>
-{% endblock %}
+       
+    {% endblock %}
+</div>
+

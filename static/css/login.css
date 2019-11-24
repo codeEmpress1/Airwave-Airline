@@ -1,0 +1,75 @@
+body{
+    background: black;
+    min-height: 100vh;
+}
+.loginform,
+.signup-form{
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom:170px;
+    
+}
+.login,
+.signup{
+    margin: 3em auto;
+    width: 80%;
+}
+@media (min-width: 560px) {
+    .loginform{
+        width: 50%;
+    }
+    .signup-form{
+        width: 70%;
+    }
+}
+@media (min-width:720px){
+    .login{
+        width: 50%;
+    }
+    .signup{
+        width: 60%;
+    }
+}
+.lgbtn,
+.signup-btn,
+.center{
+    text-align: center;
+}
+button.btn{
+    border: none;
+    color:wheat;
+    background: #856323;
+    width: 100px;
+}
+.btn:hover{
+    background: wheat;
+    color:#856323;
+    ;
+    /* transition: cubic-bezier(0.19, 1, 0.22, 1); */
+}
+legend,
+.signup-form{
+    color: wheat;
+}
+footer{
+    /* position: static; */
+    /* bottom: 0; */
+    width: 100%;
+}
+/* .signup-form{
+    color: wheat;
+} */
+a,
+a:hover{
+    color: wheat;
+    text-decoration: none;
+}
+.bold:hover{
+    font-weight: 700;
+}
+/* fieldset{
+    background-color: orangered;
+} */
+.alt{
+    line-height: 50px;
+}
