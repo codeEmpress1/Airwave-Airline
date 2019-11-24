@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block main %}
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">name</th>
+        <th scope="col">email</th>
+        <th scope="col">gender</th>
+        <th scope="col">phone number</th>
+
+      </tr>
+    </thead>
+    <tbody>
+     
+        {% for user in allusers %}
+        <tr>
+          <th scope="row">{{user["id"]}}</th>
+          <td>{{ user['fullname'] }}</td>
+          <td>{{ user['email'] }}</td>
+          <td>{{ user['gender']}}</td>
+          <td>{{user["phone_number"]}}</td>
+            </tr>
+        {% endfor %}
+
+      </tbody>
+</table>
+   <h2>welcome</h2>
+{% endblock %}

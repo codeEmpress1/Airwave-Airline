@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block main %}
+<h2 class="pricesss">prices of available flight</h2>
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">departure</th>
+        <th scope="col">destination</th>
+        <th scope="col">price</th>
+    
+
+
+      </tr>
+    </thead>
+    <tbody>
+     
+        {% for ro in row %}
+        <tr>
+          <th scope="row">{{ro['id']}}</th>
+          <td>{{ ro['departure'] }}</td>
+          <td>{{ ro['destination']}}</td>
+          <td>{{ro['price']}}</td>
+
+         
+            </tr>
+        {% endfor %}
+
+      </tbody>
+</table>
+
+{% endblock %}

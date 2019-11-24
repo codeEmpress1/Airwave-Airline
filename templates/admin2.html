@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block main %}
+<div class="adminlanding">
+    <div class="row">
+        <nav class="sidebar col-sm-3" data-toggle="">
+          <h2 class="ad_dash"><span>Admin Dashboard</span></h2>
+          <div class="list">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link" href="/alluser">View all Users</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/allbookings" >View Bookings</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/allprices" >Price List</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/alltrans" >all users transaction</a>
+                </li>
+                </ul>
+          </div>
+        
+        </nav>
+            
+        <div class="col-sm-9 bg" id="admin">
+          
+          <div class="welcome_admin">
+            <h2 style="color: red;text-transform: capitalize;">Welcome Admin</h2>
+          </div>
+           
+          </div>
+          {% for user in allusers %}
+          <h2 class="header_h2">welcome <span  class="name_display">{{ user['fullname'] }}</span> </h2>
+          <div class="imgcontainer">
+            {% if user["gender"] == "male" %}
+            <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
+          
+          {% else %}
+          <img src="https://www.w3schools.com/howto/img_avatar2.png"alt="Avatar" class="avatar">
+          {% endif %}
+        </div>
+        <div style="text-align: center;">
+          <p><span class="name_display">fullname:</span> {{user['fullname'] }} </p>
+          <p><span class="name_display">email:</span> {{user['email'] }} </p>
+          <p> <span class="name_display">gender:</span> {{user['gender'] }} </p>
+          <p> <span class="name_display">phone:</span> {{user['phone_number'] }} </p>
+        </div>
+  
+  
+          {% endfor %}
+  
+          <!-- <div>
+            <p id="desc"><i>To Serve you better</i></p>
+          </div> -->
+        </div>
+    </div>
+ </div>
+
+{% endblock %}

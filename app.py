@@ -8,7 +8,7 @@ from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
-from helpers import apology, login_required, send_confirmation_email
+from helpers import apology, login_required
 from flask_cors import CORS, cross_origin
 
 # Configure application
@@ -43,14 +43,15 @@ db = SQL("sqlite:///management.db")
 
 
 @app.route("/")
-@login_required
 def index():
     """Show portfolio of stocks"""
-    
+
     return render_template("index.html")
+    # return render_template("index.html")
 
 
 @app.route("/login", methods=["GET", "POST"])
+  
 def login():
     """Log user in"""
 
@@ -77,17 +78,31 @@ def login():
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0]["password"], request.form.get("password")):
             flash("invalid username and/or password", 403)
-            return render_template("index.html")
+            return render_template("login.html")
 
         # Remember which user has logged in
         session["user_id"] = rows[0]["id"]
 
         # Redirect user to home page
-        return redirect("/")
+        return redirect("/home")
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
         return render_template("login.html")
+
+
+
+@app.route("/home")
+@login_required
+def land():
+    user_id = session["user_id"]
+    allusers = db.execute("select * from user where id=:user_id",user_id=user_id)
+    admin = allusers[0]["is_admin"]
+    if admin == "true":
+        return render_template("admin2.html")
+    return render_template("home.html", allusers=allusers)
+
+
 
 
 @app.route("/logout")
@@ -127,11 +142,12 @@ def register():
         hashed = generate_password_hash(password)
         ro = db.execute("INSERT INTO user (fullname,password,email,phone_number,gender,is_admin) VALUES(:fullname, :hashed, :email, :phone_number, :gender,:admin)",
         fullname = fullname, hashed = hashed, email = email, phone_number = phone_number, gender = gender, admin ='false'  )
- --
+
         if not ro:
             flash("registration not successful")
             return render_template("register.html")
-        return redirect("/")
+        flash("registration successful")
+        return redirect("login.html")
     else:
         return render_template("register.html")
 
@@ -157,11 +173,26 @@ def book():
     # print(bookid)
     passenger = request.form.get("passenger")       
     if request.method == "POST":
-        if not departure or not destination or not date or not  passenger:
+        if not departure or not destination or not date or not  passenger or not time:
             flash("fill all required field")
             return render_template("booking.html")
-        
-       
+        val = db.execute("select date from booking")
+        val2 = db.execute("select time from booking")
+        arr3 =[]
+        arr4=[]
+        for i in val:
+            if str(i['date'])== str(date):
+                arr3.append(i['date'])
+        for i in val2:
+            if str(i['time'])== str(time):
+                arr4.append(i['time'])
+        if len(arr3) > 50 and len(arr4) > 50:
+            print(len(arr3),len(arr4))
+            flash("flight booking unavailable")
+            return render_template("booking.html")
+ 
+
+
         
        
         ro = db.execute("SELECT * FROM price WHERE departure=:departure and destination=:destination ",departure=departure,destination=destination)
@@ -185,7 +216,7 @@ def book():
 @login_required
 def create_transaction():
     user_id = session["user_id"]
-    bookId = session["bookId"]   
+    bookId = session["bookId"]    
     json_data = request.get_json("data")
     print(json_data)
     ticket = db.execute("select ticket_id from booking where id=:bookId", bookId=bookId)
@@ -197,10 +228,11 @@ def create_transaction():
     message = str(json_data["message"])
     trans =  str(json_data["transaction"])
     phone = str(json_data["phone"])
-    print(name,status,message,trans,phone)
+    price = str(json_data["price"])
+    print(name,status,message,trans,phone,price)
     if request.method == "POST":
-        ro = db.execute("insert into trans (name,email,reference,user_id,status,ticket_id,message,phone) values(:name,:email,:reference,:user_id,:status,:ticket_id,:message,:phone)",
-        name=name, email=email, reference=reference, user_id=user_id, status=status, ticket_id=ticket_id,message=message,phone=phone)
+        ro = db.execute("insert into trans (name,email,reference,user_id,status,ticket_id,message,phone,price) values(:name,:email,:reference,:user_id,:status,:ticket_id,:message,:phone,:price)",
+        name=name, email=email, reference=reference, user_id=user_id, status=status, ticket_id=ticket_id,message=message,phone=phone,price=price)
         update = db.execute("update booking set status=:status where Id=:bookId", status=status,bookId=bookId)
         if not update:
             flash("transaction not completed")
@@ -214,11 +246,9 @@ def create_transaction():
 @app.route('/booked')
 @login_required
 def booked():
-   
     bookId = session["bookId"]
     if request.method == "GET":
         d = db.execute("select * from booking where id=:bookId",bookId=bookId)
-
         return render_template("booked.html", d=d)
    
     return render_template("booked.html")
@@ -231,6 +261,59 @@ def booked():
 def admin():
     return render_template("admin.html")
     
+
+
+@app.route("/alluser")
+# add to admin view
+def alluser():
+    allusers = db.execute("select * from user")
+    return render_template("allusers.html",allusers=allusers)
+
+
+@app.route("/alltrans")
+# add to admin view
+def trans():
+    alltrans = db.execute("select * from trans")
+    return render_template("alltrans.html",alltrans=alltrans)
+
+
+
+@app.route("/allbookings")
+def allbookings():
+    row = db.execute("select * from booking")
+    return render_template("allbooinkgs.html",row=row)
+
+
+
+@app.route("/allprices")
+def prices():
+    row = db.execute("select * from price")
+    return render_template("prices.html",row=row)
+
+
+@app.route("/history")
+# add to admin view
+def history():
+    user_id = session["user_id"]
+    print(user_id)
+    allusers = db.execute("select * from  booking where user_id=:user_id",user_id=user_id)
+    if not allusers :
+        flash("no booking history")
+        return render_template('userhistory.html')
+    return render_template("userhistory.html",allusers=allusers)
+
+
+
+@app.route('/avaliableprice')
+def available():
+    row = db.execute("select * from price")
+    return render_template("avaliableprice.html",row=row)
+
+
+
+
+
+
 
 if __name__ == "__main__":
     app.run()
