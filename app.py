@@ -391,7 +391,7 @@ def delt(id):
 def addprice():
     destination =request.form.get("pdest")
     departure = request.form.get("pdepar")
-    price =int(request.form.get("pprice"))
+    price =request.form.get("pprice")
     print(destination,departure,price)
     if request.method == "POST":
         db.execute("insert into price (destination,departure,price) values (:destination,:departure,:price)",destination=destination,departure=departure,price=price)
