@@ -1,20 +1,42 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block main %}
-
-<table class="table">
+<div class="row" style="background: #083266;">
+<div class="col-sm-3">
+  <nav class="sidebar">
+    <h2 class="ad_dash"><span>User Dashboard</span></h2>
+    <div class="list">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link" href="/alluser">View all Users</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/allbookings" >View Bookings</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/allprices" >Price List</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/alltrans" >all users transaction</a>
+        </li>
+        </ul>
+    </div>
+  </nav>
+</div>
+<div class="col-lg-9" style="background: white;">
+  <table class="table">
     <thead class="thead-dark">
       <tr>
         <th scope="col">#</th>
-        <th scope="col">user_id</th>
-        <th scope="col">departure</th>
-        <th scope="col">destination</th>
-        <th scope="col">ticket_id</th>
-        <th scope="col">passengers</th>
-        <th scope="col">date</th>
-        <th scope="col">time</th>
-        <th scope="col">price</th>
-        <th scope="col">status</th>
+        <th scope="col">User_id</th>
+        <th scope="col">Departure</th>
+        <th scope="col">Destination</th>
+        <th scope="col">Ticket_id</th>
+        <th scope="col">Passengers</th>
+        <th scope="col">Date</th>
+        <th scope="col">Time</th>
+        <th scope="col">Price</th>
+        <th scope="col">Status</th>
 
       </tr>
     </thead>
@@ -22,7 +44,7 @@
      
         {% for ro in row %}
         <tr>
-          <th scope="row">{{ro['id']}}</th>
+            <th scope="row">{{ loop.index }}</th>
           <td>{{ ro['user_id'] }}</td>
           <td>{{ ro['departure'] }}</td>
           <td>{{ ro['destination']}}</td>
@@ -38,5 +60,7 @@
 
       </tbody>
 </table>
-   <h2>welcome</h2>
+</div>
+</div>
+
 {% endblock %}

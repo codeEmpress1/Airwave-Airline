@@ -3,41 +3,66 @@
 
 {% block main %}
     
-
-<table class="table">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">#id</th>
-        <th scope="col">name</th>
-        <th scope="col">email</th>
-        <th scope="col">phone</th>
-        <th scope="col">price</th>
-        <th scope="col">reference</th>
-        <th scope="col">user_id</th>
-        <th scope="col">message</th>
-        <th scope="col">ticket_id</th>
-        <th scope="col">status</th>
-
-      </tr>
-    </thead>
-    <tbody>
-        {% for r in alltrans %}
-      <tr>
-        <th scope="row">{{r['id']}}</th>
-        <td>{{ r['name'] }}</td>
-        <td>{{ r['email'] }}</td>
-        <td>{{r["phone"]}}</td>
-        <td name="price" id="pricepay">{{ r['price']}}</td>
-        <td>{{r["reference"]}}</td>
-        <td>{{ r['user_id'] }}</td>
-        <td>{{ r['message'] }}</td>
-        <td>{{r["ticket_id"]}}</td>
-        <td>{{r["status"]}}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-    
-</table>
+<div class="row" style="background: #083266;">
+  <div class="col-sm-3">
+    <nav class="sidebar">
+      <h2 class="ad_dash" style="text-align: center;"><span>User Dashboard</span></h2>
+      <div class="list">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="/alluser">View all Users</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/allbookings" >View Bookings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/allprices" >Price List</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/alltrans" >all users transaction</a>
+          </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  
+  <div class="col-lg-9" style="background: white;">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#id</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Phone</th>
+          <th scope="col">Price</th>
+          <th scope="col">Reference</th>
+          <th scope="col">User_id</th>
+          <th scope="col">Message</th>
+          <th scope="col">Ticket_id</th>
+          <th scope="col">Status</th>
+  
+        </tr>
+      </thead>
+      <tbody>
+          {% for r in alltrans %}
+        <tr>
+            <th scope="row">{{ loop.index }}</th>
+          <td>{{ r['name'] }}</td>
+          <td>{{ r['email'] }}</td>
+          <td>{{r["phone"]}}</td>
+          <td name="price" id="pricepay">{{ r['price']}}</td>
+          <td>{{r["reference"]}}</td>
+          <td>{{ r['user_id'] }}</td>
+          <td>{{ r['message'] }}</td>
+          <td>{{r["ticket_id"]}}</td>
+          <td>{{r["status"]}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      
+  </table>
+  </div>
+</div>
 
       
     

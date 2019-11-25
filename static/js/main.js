@@ -1,34 +1,8 @@
 
-var L;
-      window.onload = function() {
-        L.mapquest.key = 'S0grzG7xCadl79dGcxX8ZKG05uAxHTlD';
-        // 'map' refers to a <div> element with the ID map
-        var map = L.mapquest.map('map', {
-          center: [53.480759, -2.242631],
-          // 1. change 'map' to 'hybrid', try other type of map
-          layers: L.mapquest.tileLayer('hybrid'),
-          zoom: 12
-        });
-        // 2. Add control
-        map.addControl(L.mapquest.control());
-        // 3. Add icon
-        L.marker([53.480759, -2.242631], {
-          icon: L.mapquest.icons.marker({
-            primaryColor: '#22407F',
-            secondaryColor: '#3B5998',
-            shadow: true,
-            size: 'md',
-            symbol: 'A'
-          })
-        })
-        .bindPopup('This is Manchester!')
-        .addTo(map);
-      }
-
       function payWithPaystack2() {
         let amt=$('#pricetopay').val()
         let amount =  Number(amt ) * 100
-        console.log(amount)
+
         let email=$("#email").val()
         let phone = $("#phone").val()
         let userId = $("#userId").val()
@@ -53,6 +27,7 @@ var L;
            response["email"] = email;
            response["userId"] = userId
            response["phone"] = phone;
+           response["price"] = amount
             let data = JSON.stringify(response)
             $.ajax({
                 url: '/create_transactions',
@@ -62,7 +37,7 @@ var L;
                 headers:{
                     'Access-Control-Allow-Origin': '*',
                 },
-                success: (data) => console.log(data) 
+                success: (data) => {console.log(data); window.location = '/booked' }
                
             })
             
@@ -73,9 +48,23 @@ var L;
     handler.openIframe();
     }
 
-
-    var today = new Date()
+   
+function datep(){
+  var today = new Date()
    let date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
         let inputDate = document.getElementById('date');
-        inputDate.min = date;
-    
+        inputDate.min = date;  
+}
+
+function myFunction(id){
+    x = document.getElementById(id+"input")
+    console.log(x)
+    if (x.style.display == "none"){
+        x.style.display = "block";
+    } else {
+        x.style.display="none"
+    }
+//   for(let i of x){
+//     i.style.display="block"
+//   }
+}
