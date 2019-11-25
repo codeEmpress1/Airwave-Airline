@@ -2,10 +2,6 @@
 {% block title %}Home{% endblock %}
 {% block main %}
 
-{% block title %}
-    Log In
-{% endblock %}
-
      
         {% for user in allusers %}
         <h2 class="header_h2">welcome <span  class="name_display">{{ user['fullname'] }}</span> </h2>

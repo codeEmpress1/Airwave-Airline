@@ -132,7 +132,7 @@ transition: all 250ms ease-in-out 0s;
 
 }
 body {font-family: Arial, Helvetica, sans-serif;}
-form {border: 3px solid #f1f1f1;}
+/* form {border: 3px solid #f1f1f1;} */
 
 .ink {
   width: 50%;
@@ -144,7 +144,7 @@ form {border: 3px solid #f1f1f1;}
 }
 
 button {
-  background-color: #4CAF50;
+  /* background-color: #4CAF50; */
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -152,7 +152,6 @@ button {
   cursor: pointer;
   width: 20%;
 }
-
 button:hover {
   opacity: 0.8;
 }
@@ -175,7 +174,6 @@ img.avatar {
 }
 
 .container {
-  padding: 16px;
   text-align: center;
 }
 
@@ -240,4 +238,134 @@ form {
 .pricesss{
   color: red;
   text-align: center;
+}
+
+/* ABOUT CSS */
+.social-link {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  border-radius: 50%;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+}
+
+.social-link:hover,
+.social-link:focus {
+  background: #ddd;
+  text-decoration: none;
+  color: #555;
+}
+.black{
+    background: rgb(15, 15, 15);
+}
+.text_animate{
+      position: relative;
+      font-family: sans-serif;
+      text-transform: uppercase;
+      font-size: 4em;
+      letter-spacing: .5em;
+      overflow: hidden;
+      background: linear-gradient(90deg, #000, #fff, #000);
+      background-repeat: no-repeat;
+      background-size: 85%;
+      animation: animate 3s linear infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: rgba(255, 255, 255, 0);
+    }
+    
+    @keyframes animate {
+      0% {
+        background-position: -500%;
+      }
+      100% {
+        background-position: 500%;
+      }
+    }
+.darkgray{
+    background: rgb(56, 56, 57);
+    /* padding: 2em 0; */
+}
+.lightgray{
+    background: lightgray;
+}
+.lightheader{
+    color: lightgray;
+}
+.darkheader{
+    color: rgb(105, 105, 106);
+}
+.flight{
+    padding: 3em 0;
+}
+
+/* LOGIN STYLE */
+body{
+  /* background: black; */
+  min-height: 100vh;
+}
+.loginform,
+.signup-form{
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom:170px;
+  
+}
+.login,
+.signup{
+  margin: 3em auto;
+  width: 80%;
+}
+@media (min-width: 560px) {
+  .loginform{
+      width: 50%;
+  }
+  .signup-form{
+      width: 70%;
+  }
+}
+@media (min-width:720px){
+  .login{
+      width: 50%;
+  }
+  .signup{
+      width: 60%;
+  }
+}
+.lgbtn,
+.signup-btn,
+.center{
+  text-align: center;
+}
+.btn:hover{
+  background: orange;
+  color:black;
+  ;
+  /* transition: cubic-bezier(0.19, 1, 0.22, 1); */
+}
+legend,
+.signup-form{
+  color: orange;
+}
+footer{
+  width: 100%;
+}
+a,
+a:hover{
+  color: orange;
+  text-decoration: none;
+}
+.bold:hover{
+  font-weight: 700;
+}
+
+.alt{
+  line-height: 50px;
+}
+button .search{
+  color: black;
+  background: white;
 }

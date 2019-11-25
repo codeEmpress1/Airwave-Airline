@@ -54,11 +54,6 @@ def index():
     # return render_template("index.html")
 
 
-@app.route("/home")
-def home():
-    return render_template("home.html")
-
-
 @app.route("/gallery")
 def gallery():
     return render_template("gallery.html")
@@ -364,13 +359,14 @@ def history():
         return render_template('userhistory.html')
     return render_template("userhistory.html",allusers=allusers)
 
-
-
 @app.route('/avaliableprice')
 def available():
     row = db.execute("select * from price")
     return render_template("avaliableprice.html",row=row)
 
+@app.route('/about')
+def about():
+    return render_template("about.html")
 
 
 
