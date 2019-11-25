@@ -358,13 +358,14 @@ def history():
         return render_template('userhistory.html')
     return render_template("userhistory.html",allusers=allusers)
 
-
-
 @app.route('/avaliableprice')
 def available():
     row = db.execute("select * from price")
     return render_template("avaliableprice.html",row=row)
 
+@app.route('/about')
+def about():
+    return render_template("about.html")
 
 
 @app.route("/update/<int:id>",methods=["POST"])
