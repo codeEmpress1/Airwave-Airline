@@ -18,7 +18,7 @@
      
         {% for ro in row %}
         <tr>
-          <th scope="row">{{ro['id']}}</th>
+          <th scope="row">{{ loop.index }}</th>
           <td>{{ ro['departure'] }}</td>
           <td>{{ ro['destination']}}</td>
           <td>{{ro['price']}}</td>

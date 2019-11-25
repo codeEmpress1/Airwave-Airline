@@ -2,37 +2,59 @@
 {% block title %}Home{% endblock %}
 {% block main %}
 
-<table class="table">
+<div class="row" style="background: #083266">
+  <div class="col-sm-3">
+    <nav class="sidebar col-sm-3">
+      <h2 class="ad_dash"><span>User Dashboard</span></h2>
+      <div class="list">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="/alluser">View all Users</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/allbookings" >View Bookings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/allprices" >Price List</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/alltrans" >all users transaction</a>
+          </li>
+          </ul>
+      </div>
+    </nav>
+  </div>
+  <div class="col-lg-9" style="background: #ffffff;">
+    <table class="table">
     <thead class="thead-dark">
       <tr>
         <th scope="col">#</th>
-        <th scope="col">departure</th>
-        <th scope="col">destination</th>
-        <th scope="col">price</th>
-        <th scope="col">update</th>
-        <th scope="col">delete</th>
+        <th scope="col">Departure</th>
+        <th scope="col">Destination</th>
+        <th scope="col">Price</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
 
 
       </tr>
     </thead>
     <tbody>
-     
         {% for ro in row %}
         <tr>
-          <th scope="row">{{ro['id']}}</th>
+          <th scope="row">{{ loop.index }}</th>
           <td>{{ ro['departure'] }}</td>
           <td>{{ ro['destination']}}</td>
           <td>{{ro['price']}}</td>
-          <td><button class="btn btn-primary" style="width: 100px;" onclick="myFunction()">update</button></td>
-          <!-- <td><a id="updatebtn" class="btn btn-primary" data-role="{{id}}" value="{{ro['id']}}" href="/update">update</a></td> -->
-          <td><a id="deletebtn" class="btn btn-primary" data-role="{{id}}" value="{{ro['id']}}" href="/delete">delete</a></td>
-          <td ><input type="text" id="input" style="display: none;"></td>
+          <td><button class="btn btn-primary" style="width: 100px;" onclick="{{ 'myFunction({0})'.format(ro['id']) }}">update</button></td>
+          <td><form action="/delete/{{ro['id']}}" method="POST"><input type="submit" value="delete" class="btn btn-primary"></form></td>
+          <td class="input" style="display: none" id="{{ '{0}input'.format(ro['id']) }}"><form action="/update/{{ro['id']}}" method="POST"><input type="text" name="update"><input type="submit" class="btn btn-primary" value='submit'></form></td>
 
          
             </tr>
         {% endfor %}
 
       </tbody>
-</table>
-   <h2>welcome</h2>
+    </table>
+  </div>
+</div>
 {% endblock %}

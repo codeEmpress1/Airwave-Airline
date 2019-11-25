@@ -19,7 +19,7 @@
     <tbody>
         {% for r in d %}
       <tr>
-        <th scope="row">1</th>
+          <th scope="row">{{ loop.index }}</th>
         <td>{{ r['departure'] }}</td>
         <td>{{ r['destination'] }}</td>
         <td name="price" id="pricepay">{{ r['prices']}}</td>
