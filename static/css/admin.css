@@ -60,14 +60,14 @@ body, html {
   width: 100px;
   /* margin-right:20px; */
 }
-.btn{
+/* .btn{
   align-content: center;
   margin: 5px auto;
-  /* padding: 2px; */
+   padding: 2px; 
   background-color:hsla(221, 84%, 81%, 0.932);
   color: #083266;
   width: 80px;
-}
+} */
 .nav-profile h2{
   text-align: center;
   margin: 0.2em auto;

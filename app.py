@@ -53,12 +53,6 @@ def index():
     return render_template("index.html")
     # return render_template("index.html")
 
-
-@app.route("/home")
-def home():
-    return render_template("home.html")
-
-
 @app.route("/gallery")
 def gallery():
     return render_template("gallery.html")
@@ -113,7 +107,7 @@ def land():
     allusers = db.execute("select * from user where id=:user_id",user_id=user_id)
     admin = allusers[0]["is_admin"]
     if admin == "true":
-        return render_template("admin2.html")
+        return render_template("admin2.html",allusers=allusers)
     return render_template("home.html", allusers=allusers)
 
 
@@ -210,10 +204,10 @@ def book():
         
        
         ro = db.execute("SELECT * FROM price WHERE departure=:departure and destination=:destination ",departure=departure,destination=destination)
-        print(ro)
-        prices =ro[0]['price']  * int(passenger)
         if not ro:
-            return apology("flight unavalaible")
+            flash("flight unavailable")
+            return render_template("booking.html")
+        prices =ro[0]['price']  * int(passenger)
         row = db.execute("INSERT INTO booking (departure,destination,date,user_id,passenger,ticket_id,status,time,prices) VALUES(:departure, :destination, :date, :userId, :passenger, :ticket_id, :status, :time, :prices)",
         departure =departure, destination = destination, date = date, userId = userId, passenger = passenger,ticket_id =ticket_id, status=status, time=time, prices=prices)
         session["bookId"] =row
@@ -373,9 +367,40 @@ def available():
 
 
 
+@app.route("/update/<int:id>",methods=["POST"])
+def updateuse(id):
+    if request.method == "POST":
+        price= request.form.get('update')
+        print(id)
+        ro = db.execute("update price set price=:price where id=:id",id=id,price=price)
+        row = db.execute("select * from price")
+        return render_template("prices.html",row=row)
+
+
+@app.route('/delete/<int:id>',methods=["POST"])
+def delt(id):
+    print(id)
+    if request.method == "POST":
+        db.execute("delete  from price where id=:id",id=id)
+        return redirect("/avaliableprice")
 
 
 
+@app.route("/addprice", methods=["POST","GET"])
+def addprice():
+    destination =request.form.get("pdest")
+    departure = request.form.get("pdepar")
+    price =int(request.form.get("pprice"))
+    print(destination,departure,price)
+    if request.method == "POST":
+        db.execute("insert into price (destination,departure,price) values (:destination,:departure,:price)",destination=destination,departure=departure,price=price)
+        return redirect("/allprices")
+    return render_template('addprices.html')
+
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 if __name__ == "__main__":
     app.run()

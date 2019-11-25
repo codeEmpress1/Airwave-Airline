@@ -1,5 +1,5 @@
 body{
-    background: black;
+    /* background: black; */
     min-height: 100vh;
 }
 .loginform,
@@ -37,19 +37,19 @@ body{
 }
 button.btn{
     border: none;
-    color:wheat;
-    background: #856323;
+    color:black;
+    background: orange;
     width: 100px;
 }
 .btn:hover{
-    background: wheat;
-    color:#856323;
+    background: black;
+    color:orange;
     ;
     /* transition: cubic-bezier(0.19, 1, 0.22, 1); */
 }
 legend,
 .signup-form{
-    color: wheat;
+    color: orange;
 }
 footer{
     /* position: static; */
@@ -61,7 +61,7 @@ footer{
 } */
 a,
 a:hover{
-    color: wheat;
+    color: orange;
     text-decoration: none;
 }
 .bold:hover{

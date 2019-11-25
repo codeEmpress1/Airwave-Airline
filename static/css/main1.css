@@ -131,8 +131,9 @@ box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 transition: all 250ms ease-in-out 0s;
 
 }
-body {font-family: Arial, Helvetica, sans-serif;}
-form {border: 3px solid #f1f1f1;}
+body{
+  font-family: Arial, Helvetica, sans-serif;
+}
 
 .ink {
   width: 50%;
@@ -175,7 +176,7 @@ img.avatar {
 }
 
 .container {
-  padding: 16px;
+  /* padding: 16px; */
   text-align: center;
 }
 
@@ -226,11 +227,12 @@ form {
   margin-top:4.5px;
 }
 .name_display{
-  font-size: large;
-  color:red;
+  /* font-size: large; */
+  margin: 0;
+  color: #083266;
 }
 .header_h2{
-  color: red;
+  color:#083266;
   margin-left: 40%;
 }
 .signup-form{
@@ -238,6 +240,15 @@ form {
   margin: auto;
 }
 .pricesss{
-  color: red;
+  color: #083266;
   text-align: center;
+}
+.admin_details{
+  width: 60%;
+  /* border: 1px solid #083266; */
+  /* background: skyblue; */
+  margin: 0 auto;
+}
+.details_center{
+  margin: 0 auto;
 }

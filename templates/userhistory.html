@@ -2,6 +2,7 @@
 {% block title %}Home{% endblock %}
 {% block main %}
 <h2>history</h2>
+
 <table class="table">
     <thead class="thead-dark">
       <tr>
@@ -21,6 +22,7 @@
      
         {% for ro in allusers %}
         <tr>
+            <th scope="row">{{ loop.index }}</th>
           <td>{{ ro['departure'] }}</td>
           <td>{{ ro['destination']}}</td>
           <td>{{ro['ticket_id']}}</td>
