@@ -4,7 +4,7 @@
 <div class="adminlanding">
     <div class="row" style="background-color:#083266 ;">
         <nav class="sidebar col-sm-3">
-          <h2 class="ad_dash" style="color:orange"><span>Admin Dashboard</span></h2>
+          <h2 class="ad_dash" style="text-align: center ;color:#ff8d1e;"><span>Admin Dashboard</span></h2>
           <div class="list">
             <ul class="nav flex-column">
                 <li class="nav-item">
@@ -33,7 +33,7 @@
               <!-- <h2 style="color: red;text-transform: capitalize;">Welcome Admin</h2> -->
              
               {% for user in allusers %}
-            <h2 class="header_h2" style="text-align: left;">Welcome<span class="name_display">{{ user['fullname'] }}</span></h2>
+            <h2 class="header_h2" style="text-align:left">Welcome</h2>
             <div class="imgcontainer">
               {% if user["gender"] == "male" %}
               <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">

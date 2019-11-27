@@ -18,7 +18,7 @@
     <nav  class="navbar navbar-inverse" style="margin-bottom : -10px; opacity:0.9;">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a  id ="image2" class=" navbar-brand" href="#">AIRWAVE AIRLINE</a>
+      <a  class=" navbar-brand" href="#">AIRWAVE AIRLINE</a>
     </div>
      {% if session.user_id %}
          <ul style=" padding-left: 30%;" class="nav navbar-nav">
@@ -53,9 +53,9 @@
                      <li role="presentation"><a href="/avaliableprice">Prices</a></li>
                  </ul>
                  
-    <form class="navbar-form navbar-left" action="/action_page.php">
+    <form class="navbar-form navbar-left" action="/allprices2" method="POST">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search">
+        <input type="text" class="form-control" name="input" placeholder="Search">
         <div class="input-group-btn">
           <button class="btn btn-default" type="submit" style="margin: 2px; background: white; color: black;">
             <i class="glyphicon glyphicon-search"></i>
@@ -73,7 +73,7 @@
 
 {% if get_flashed_messages() %}
 <header>
-    <div class="alert alert-primary border text-center" role="alert">
+    <div class="alert alert-primary border text-center" role="alert"style="color:red;">
         {{ get_flashed_messages() | join(" ") }}
     </div>
 </header>
@@ -99,9 +99,9 @@
           <li>
           <div class="thumb-content"><a href="/login">Log in</a></div>	
           </li>
-          <li>
+          <!-- <li>
           <div class="thumb-content"><a href="#">Careers</a></div>	
-          </li>
+          </li> -->
           <!-- <li>
           <div class="thumb-content"><a href="gallry.html">Gallery</a></div>	 
           </li> -->
@@ -116,7 +116,7 @@
           <div class="widget no-box">
           <h5 class="widget-title">Get Started<span></span></h5>
           <p>Get access to your full Training and Marketing Suite.</p>
-          <a class="btn" href="#." target="_blank">Register Now</a>
+          <a class="btn" href="/register">Register Now</a>
           </div>
           </div>
           

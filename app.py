@@ -136,15 +136,15 @@ def register():
     print(fullname,password,confirmation)
     if request.method == "POST":
         if not fullname or not password or not confirmation or not gender or not email or not phone_number:
-            flash("you must provide all required field",403)
+            flash("You must provide all required field",403)
             return render_template("register.html")
         if password != confirmation:
-            flash("password doesnt match")
+            flash("Password doesnt match")
             return render_template("register.html")
            
         row = db.execute("SELECT * FROM user WHERE email = :email",email=request.form.get("email"))
         if row:
-            flash("user all ready taken")
+            flash("email already taken")
             return render_template("register.html")
             # return apology("email already exist taken")
         hashed = generate_password_hash(password)
@@ -152,10 +152,10 @@ def register():
         fullname = fullname, hashed = hashed, email = email, phone_number = phone_number, gender = gender, admin ='false'  )
 
         if not ro:
-            flash("registration not successful")
+            flash("Registration not successful")
             return render_template("register.html")
-        flash("registration successful")
-        return redirect("login.html")
+        flash("Registration successful")
+        return render_template("login.html")
     else:
         return render_template("register.html")
 
@@ -354,7 +354,7 @@ def history():
     print(user_id)
     allusers = db.execute("select * from  booking where user_id=:user_id",user_id=user_id)
     if not allusers :
-        flash("no booking history")
+        flash("No booking history")
         return render_template('userhistory.html')
     return render_template("userhistory.html",allusers=allusers)
 
@@ -397,6 +397,8 @@ def addprice():
         db.execute("insert into price (destination,departure,price) values (:destination,:departure,:price)",destination=destination,departure=departure,price=price)
         return redirect("/allprices")
     return render_template('addprices.html')
+
+
 
 
 

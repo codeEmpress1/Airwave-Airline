@@ -1,20 +1,21 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block main %}
-<h2>history</h2>
-
-<table class="table">
-    <thead class="thead-dark">
+<h2 style="text-align: center;color: #ff8d1e;">History</h2>
+<div style="width:60% ;margin: 10px auto ; min-height: 80vh;" >
+<table class="table" style="border:1px solid ;border-radius:6px;">
+    <thead class="thead-dark" style="background-color:orange ;color: white;">
       <tr>
-       
-        <th scope="col">departure</th>
-        <th scope="col">destination</th>
-        <th scope="col">ticket_id</th>
-        <th scope="col">passengers</th>
-        <th scope="col">date</th>
-        <th scope="col">time</th>
-        <th scope="col">price</th>
-        <th scope="col">status</th>
+        <th scope="col">#</th>
+
+        <th scope="col">Departure</th>
+        <th scope="col">Destination</th>
+        <th scope="col">Ticket_id</th>
+        <th scope="col">Passengers</th>
+        <th scope="col">Date</th>
+        <th scope="col">Time</th>
+        <th scope="col">Price</th>
+        <th scope="col">Status</th>
 
       </tr>
     </thead>
@@ -37,5 +38,5 @@
 
       </tbody>
 </table>
-
+</div>
 {% endblock %}

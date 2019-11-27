@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block main %}
-<h2" style="text-align: center;">booking</h2>
-            <p class="hint-text">book your dream flight</p>
+<style>
+
+</style>
+<h2 style="text-align: center;color: orange;font-weight: bolder;">Airwave</h2>
+<p class="hint-text" style="text-align: center;"><i>Book your dream flight</i></p>
 
 
     <form action="/booking" method="post" style="text-align: center">
@@ -11,9 +14,9 @@
         
 
             <div class="row justify-content-md-center">
-                    <label>depature</label><br>
+                    <label>Departure</label><br>
                     <select class="custom-select custom-select-lg mb-3" name="departure">
-                        <option value="" selected="selected">- depature -</option>
+                        <option value="" selected="selected">- Departure -</option>
                         <option value="Abuja">Abuja FCT</option>
                         <option value="Delta">Delta</option>
                         <option value="Kaduna">Kaduna</option>
@@ -24,7 +27,7 @@
                 </div>
             </div><br>
                 <div class="row justify-content-md-center">
-                <label>destination</label><br>
+                <label>Destination</label><br>
                     <select class="custom-select custom-select-lg mb-3" name="destination">
                         <option value="" selected="selected">- depature -</option>
                         <option value="Abuja">Abuja FCT</option>
@@ -38,14 +41,14 @@
 
                 <div class="row justify-content-md-center">
                     <div class="form-group">
-                        <label>depature date</label><br>
+                        <label>Depature date</label><br>
                         <input type="date" class="form-control" placeholder="Date of departure" name="date" id="date"
                             onfocus="datep()" style="width: 15%; text-align: center; margin:auto;">
                     </div>
                 </div>
                     <div class="row justify-content-md-center">
                     <div class="form-group">
-                        <label>passenger</label><br>
+                        <label>Passenger</label><br>
                         <select name="passenger" id="move" class="custom-select custom-select-lg mb-3">
                             <option value="" disabled selected>select passenger</option>
                             <option value="1">1</option>
@@ -63,7 +66,7 @@
                             <label>time</label></br>
                             <select name="time" class="custom-select custom-select-sm">
                                 <option value="" disabled selected>select time</option>
-                                <option value="12:00pm">12:00</option>
+                                <option value="12:00pm">12:00pm</option>
                                 <option value="4:00pm">4:00pm</option>
                             </select>
                         </div>

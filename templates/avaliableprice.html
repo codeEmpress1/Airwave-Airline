@@ -1,14 +1,18 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block main %}
-<h2 class="pricesss">prices of available flight</h2>
+
+<div style="margin: 10rem auto">
+<h2 class="pricesss" style="color:orange;">Price of available flights</h2>
+
+<div style="width:60% ; margin: 20px auto; border:1px solid ;border-radius:6px">
 <table class="table">
     <thead class="thead-dark">
       <tr>
         <th scope="col">#</th>
-        <th scope="col">departure</th>
-        <th scope="col">destination</th>
-        <th scope="col">price</th>
+        <th scope="col">Departure</th>
+        <th scope="col">Destination</th>
+        <th scope="col">Price</th>
     
 
 
@@ -29,5 +33,7 @@
 
       </tbody>
 </table>
+</div>
+</div>
 
 {% endblock %}

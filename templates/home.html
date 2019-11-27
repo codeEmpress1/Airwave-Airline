@@ -4,8 +4,9 @@
 
      
         {% for user in allusers %}
-        <h2 class="header_h2">welcome <span  class="name_display">{{ user['fullname'] }}</span> </h2>
+        <h2 class="header_h2">Welcome <span  class="name_display" style="text-align:left">{{ user['fullname'] }}</span> </h2>
         <div class="imgcontainer">
+           
           {% if user["gender"] == "male" %}
           <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
         

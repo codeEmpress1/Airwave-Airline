@@ -3,17 +3,17 @@
 
 {% block main %}
     
-
-<table class="table">
+<div style="width:60% ;margin: 8rem auto ; min-height: 80vh;">
+<table class="table"style="border:1px solid ;border-radius:6px;">
     <thead class="thead-dark">
       <tr>
         <th scope="col">#</th>
-        <th scope="col">departure</th>
-        <th scope="col">destination</th>
-        <th scope="col">price</th>
-        <th scope="col">time</th>
-        <th scope="col">date</th>
-        <th scope="col">status</th>
+        <th scope="col">Departure</th>
+        <th scope="col">Destination</th>
+        <th scope="col">Price</th>
+        <th scope="col">Time</th>
+        <th scope="col">Date</th>
+        <th scope="col">Status</th>
 
       </tr>
     </thead>
@@ -37,7 +37,8 @@
     <input type="hidden" value="{{phone}}" id="phone">
     <input type="hidden" value="{{pa}}" id="passenger">
 </table>
-<button type="button" onclick="payWithPaystack2();" class="btn btn-primary">Pay</button>
+<button type="button" onclick="payWithPaystack2();" class="btn btn-primary" style="margin-left:40%;">Pay</button>
+</div>
 
 <script src='https://js.paystack.co/v1/inline.js'></script> 
 

@@ -1,5 +1,11 @@
+
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  padding:0;
+  margin: 0;
+}
 #image2{
-    background-image:url("https://images.unsplash.com/photo-1517999349371-c43520457b23?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
+    /* background-image:url("https://images.unsplash.com/photo-1517999349371-c43520457b23?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"); */
     background-repeat: no-repeat; 
     background-size: cover;
   
@@ -16,7 +22,6 @@
     left: 10%;
   }
   .logs{
-    background-color:  rgba(7, 7, 7, 0.692);
     margin: 0 auto;
     padding: 5px 5px;
     text-align: center;
@@ -47,6 +52,10 @@
   }
   .btn{
     background-color:rgba(7, 7, 7, 0.692);
+  }
+  nav ul li a:active{
+    background-color:white ;
+    color:red;
   }
   /* #button {
     background-color: #110672;
@@ -97,7 +106,7 @@ footer.light .footer-copyright{	background: none repeat scroll 0 0 rgba(255, 255
 .widget li a{	color: #ff8d1e;}
 .widget li a:hover{	color: #4b92dc;}
 .widget-title {margin-bottom: 20px;}
-.widget-title span {background: #839FAD none repeat scroll 0 0;display: block; height: 1px;margin-top: 25px;position: relative;width: 20%;}
+.widget-title span {background: #839FAD none repeat scroll 0 0;display: block; height: 1px;margin-top: 25px;position: relative;width: 20%; margin-left: 100px}
 .widget-title span::after {background: inherit;content: "";height: inherit;    position: absolute;top: -4px;width: 50%;}
 .widget-title.text-center span,.widget-title.text-center span::after {margin-left: auto;margin-right:auto;left: 0;right: 0;}
 .widget .badge{	float: right;	background: #7f7f7f;}
@@ -130,9 +139,6 @@ box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 -o-transition: all 250ms ease-in-out 0s;
 transition: all 250ms ease-in-out 0s;
 
-}
-body{
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 .ink {
@@ -232,7 +238,7 @@ form {
 }
 .header_h2{
   color:#083266;
-  margin-left: 40%;
+  margin-left: 42%;
 }
 .signup-form{
   width: 39%;
@@ -321,7 +327,7 @@ body{
 .signup-form{
   width: 100%;
   margin: 0 auto;
-  margin-bottom:170px;
+  margin-bottom:80px;
   
 }
 .login,
@@ -358,14 +364,14 @@ body{
 }
 legend,
 .signup-form{
-  color: orange;
+  color: #ff8d1e;;
 }
 footer{
   width: 100%;
 }
 a,
 a:hover{
-  color: orange;
+  color: #ff8d1e;;
   text-decoration: none;
 }
 .bold:hover{
